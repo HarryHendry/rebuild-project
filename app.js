@@ -1,4 +1,5 @@
-const API_BASE = "https://the-rebuild-project-blog/wp-json/wp/v2";
+const API_BASE = "https://the-rebuild-project-blog.com/wp-json/wp/v2";
+
 
 async function fetchPosts(options = {}) {
   const params = new URLSearchParams(options);
