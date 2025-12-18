@@ -1,14 +1,16 @@
 async function loadRecentPosts() {
   try {
-    const posts = await fetchPosts({ per_page: 20, _: Date.now() }); // cache-busting
+    const posts = await fetchPosts({ per_page: 20, _: Date.now() }); // fetch latest 20, cache-busting
     const container = document.getElementById("recent-posts");
 
     if (!container) return;
 
-    // Sort posts by newest first
-    const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // Sort posts by newest first and take only 6
+    const latestPosts = posts
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 6);
 
-    container.innerHTML = sortedPosts.map(post => {
+    container.innerHTML = latestPosts.map(post => {
       const id = post.id;
       const title = post.title?.rendered || "Untitled";
       const date = post.date ? new Date(post.date).toLocaleDateString() : "";
@@ -17,7 +19,7 @@ async function loadRecentPosts() {
         : "";
       const author = post._embedded?.author?.[0]?.name || "Unknown";
 
-      // Cache-busting on featured image to always get the latest
+      // Cache-busting featured image
       const featuredImage =
         post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
         post.featured_image ||
