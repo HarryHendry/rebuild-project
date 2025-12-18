@@ -3,6 +3,7 @@ async function loadAllPosts() {
   const container = document.getElementById("blog-posts");
 
   container.innerHTML = posts.map(post => {
+    console.log("POST:", post)
     const id = post.id || null;
     const title = post.title?.rendered || "Untitled";
     const date = post.date ? new Date(post.date).toLocaleDateString() : "";
