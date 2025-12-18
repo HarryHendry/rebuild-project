@@ -1,5 +1,5 @@
 async function loadRecentPosts() {
-  const posts = await fetchPosts({ per_page: 6 });
+  const posts = await fetchPosts({ per_page: 20 });
   const container = document.getElementById("recent-posts");
 
   container.innerHTML = posts.map(post => {
