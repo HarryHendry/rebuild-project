@@ -11,7 +11,8 @@ async function loadAllPosts() {
         <h3><a href="post.html?id=${post.id}">${post.title.rendered}</a></h3>
 
         <div class="meta">
-          <span class="author">${post._embedded.author[0].name}</span>
+         <span class="author">${post._embedded?.author?.[0]?.name || "Unknown"}</span>
+
           <span class="date">${new Date(post.date).toLocaleDateString()}</span>
         </div>
 
